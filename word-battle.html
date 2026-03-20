@@ -874,6 +874,331 @@
             background: rgba(0,0,0,0.2);
             border-radius: 6px;
         }
+        
+        /* P3 阶段样式 - 每日任务 */
+        .daily-task-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,165,0,0.15));
+            border: 1px solid rgba(255,215,0,0.4);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            max-width: 320px;
+        }
+        
+        .daily-task-bar:active {
+            transform: scale(0.98);
+        }
+        
+        .task-icon {
+            font-size: 20px;
+        }
+        
+        .task-text {
+            font-size: 14px;
+            color: #ffd700;
+            font-weight: bold;
+        }
+        
+        .task-streak {
+            font-size: 13px;
+            color: #ff6b6b;
+        }
+        
+        .daily-task-page {
+            padding-top: 10px;
+        }
+        
+        .task-progress-ring {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            position: relative;
+        }
+        
+        .task-progress-ring svg {
+            transform: rotate(-90deg);
+        }
+        
+        .task-progress-ring circle {
+            fill: none;
+            stroke-width: 10;
+        }
+        
+        .task-progress-ring .bg {
+            stroke: rgba(255,255,255,0.1);
+        }
+        
+        .task-progress-ring .progress {
+            stroke: #ffd700;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.5s;
+        }
+        
+        .task-progress-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .task-progress-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ffd700;
+        }
+        
+        .task-progress-label {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .task-days {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 20px 0;
+        }
+        
+        .task-day {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            background: rgba(255,255,255,0.1);
+            color: #666;
+        }
+        
+        .task-day.completed {
+            background: linear-gradient(135deg, #00ff88, #00cc66);
+            color: #000;
+        }
+        
+        .task-day.today {
+            border: 2px solid #ffd700;
+        }
+        
+        /* 学习报告 */
+        .report-page {
+            padding-top: 10px;
+        }
+        
+        .report-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        
+        .report-tab {
+            padding: 8px 20px;
+            border: 1px solid rgba(0,212,255,0.3);
+            border-radius: 20px;
+            background: transparent;
+            color: #fff;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .report-tab.active {
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: #000;
+            border-color: #00d4ff;
+        }
+        
+        .report-card {
+            background: rgba(0,212,255,0.1);
+            border: 1px solid rgba(0,212,255,0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+        
+        .report-title {
+            font-size: 14px;
+            color: #00d4ff;
+            margin-bottom: 10px;
+        }
+        
+        .report-stat {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 14px;
+        }
+        
+        .report-stat-value {
+            font-weight: bold;
+            color: #00d4ff;
+        }
+        
+        .report-chart {
+            height: 150px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
+        
+        .report-bar {
+            width: 30px;
+            background: linear-gradient(180deg, #00d4ff, #7b2cbf);
+            border-radius: 4px 4px 0 0;
+            transition: height 0.3s;
+        }
+        
+        .report-bar-label {
+            font-size: 10px;
+            color: #888;
+            text-align: center;
+            margin-top: 5px;
+        }
+        
+        /* 主题设置 */
+        .theme-page {
+            padding-top: 10px;
+        }
+        
+        .theme-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .theme-option.active {
+            border-color: #00d4ff;
+        }
+        
+        .theme-preview {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            margin-right: 12px;
+        }
+        
+        .theme-name {
+            flex: 1;
+            font-size: 14px;
+        }
+        
+        /* 家长中心 */
+        .parent-page {
+            padding-top: 10px;
+        }
+        
+        .parent-section {
+            background: rgba(0,212,255,0.1);
+            border: 1px solid rgba(0,212,255,0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+        
+        .parent-section-title {
+            font-size: 15px;
+            color: #00d4ff;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .setting-row:last-child {
+            border-bottom: none;
+        }
+        
+        .setting-label {
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        .setting-input {
+            width: 80px;
+            padding: 8px;
+            border: 1px solid rgba(0,212,255,0.3);
+            border-radius: 6px;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .setting-toggle {
+            width: 50px;
+            height: 26px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .setting-toggle.active {
+            background: linear-gradient(135deg, #00ff88, #00cc66);
+        }
+        
+        .setting-toggle::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: #fff;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s;
+        }
+        
+        .setting-toggle.active::after {
+            left: 26px;
+        }
+        
+        .pin-input {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .pin-digit {
+            width: 40px;
+            height: 50px;
+            border: 2px solid rgba(0,212,255,0.5);
+            border-radius: 8px;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            font-size: 24px;
+            text-align: center;
+        }
+        
+        .pin-digit:focus {
+            border-color: #00d4ff;
+            outline: none;
+        }
     </style>
     <!-- SheetJS for Excel import -->
     <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
@@ -922,6 +1247,13 @@
                 </div>
             </div>
             
+            <!-- 每日任务提示 -->
+            <div class="daily-task-bar" id="dailyTaskBar" onclick="showDailyTask()">
+                <span class="task-icon">🎯</span>
+                <span class="task-text" id="dailyTaskText">今日任务: 0/20 单词</span>
+                <span class="task-streak" id="taskStreakText">🔥 0天</span>
+            </div>
+            
             <div class="mode-buttons">
                 <button class="btn btn-primary" onclick="startStudyMode()">
                     📚 学习模式
@@ -940,6 +1272,15 @@
                 </button>
                 <button class="btn btn-secondary" onclick="showAchievements()">
                     🏆 成就
+                </button>
+                <button class="btn btn-secondary" onclick="showReports()">
+                    📊 学习报告
+                </button>
+                <button class="btn btn-secondary" onclick="showThemeSettings()">
+                    🎨 主题设置
+                </button>
+                <button class="btn btn-secondary" onclick="showParentMode()">
+                    👨‍👩‍👧 家长中心
                 </button>
                 <button class="btn btn-secondary" onclick="showEditor()">
                     ⚙️ 词库管理
@@ -1198,6 +1539,221 @@
             
             <div class="mode-buttons">
                 <button class="btn btn-secondary" onclick="goHome()">返回主页</button>
+            </div>
+        </div>
+        
+        <!-- 每日任务页面 -->
+        <div class="page daily-task-page" id="dailyTaskPage">
+            <button class="back-btn" onclick="goHome()">←</button>
+            
+            <div class="header">
+                <div class="logo">🎯 每日任务</div>
+                <div class="subtitle">设定目标，持之以恒</div>
+            </div>
+            
+            <div class="main-content">
+                <div class="task-progress-ring">
+                    <svg width="150" height="150">
+                        <circle class="bg" cx="75" cy="75" r="60"/>
+                        <circle class="progress" id="taskProgressCircle" cx="75" cy="75" r="60" 
+                            stroke-dasharray="377" stroke-dashoffset="377"/>
+                    </svg>
+                    <div class="task-progress-center">
+                        <div class="task-progress-number" id="taskProgressNumber">0</div>
+                        <div class="task-progress-label">/ <span id="taskGoalNumber">20</span> 单词</div>
+                    </div>
+                </div>
+                
+                <div style="text-align:center;margin-bottom:20px;">
+                    <button class="btn btn-primary" onclick="editDailyTask()">修改目标</button>
+                </div>
+                
+                <div class="task-days" id="taskDays"></div>
+                
+                <div class="report-card">
+                    <div class="report-title">📈 连续学习</div>
+                    <div class="report-stat">
+                        <span>连续天数</span>
+                        <span class="report-stat-value" id="streakDays">0 天</span>
+                    </div>
+                    <div class="report-stat">
+                        <span>最长连续</span>
+                        <span class="report-stat-value" id="maxStreakDays">0 天</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 学习报告页面 -->
+        <div class="page report-page" id="reportPage">
+            <button class="back-btn" onclick="goHome()">←</button>
+            
+            <div class="header">
+                <div class="logo">📊 学习报告</div>
+                <div class="subtitle">回顾学习，展望进步</div>
+            </div>
+            
+            <div class="main-content">
+                <div class="report-tabs">
+                    <button class="report-tab active" onclick="switchReport('week')">本周</button>
+                    <button class="report-tab" onclick="switchReport('month')">本月</button>
+                </div>
+                
+                <div class="report-card">
+                    <div class="report-title">📈 学习趋势</div>
+                    <div class="report-chart" id="reportChart"></div>
+                </div>
+                
+                <div class="report-card">
+                    <div class="report-title">📋 统计概览</div>
+                    <div class="report-stat">
+                        <span>学习天数</span>
+                        <span class="report-stat-value" id="reportDays">0 天</span>
+                    </div>
+                    <div class="report-stat">
+                        <span>完成单词数</span>
+                        <span class="report-stat-value" id="reportWords">0 个</span>
+                    </div>
+                    <div class="report-stat">
+                        <span>平均正确率</span>
+                        <span class="report-stat-value" id="reportAccuracy">0%</span>
+                    </div>
+                    <div class="report-stat">
+                        <span>学习时长</span>
+                        <span class="report-stat-value" id="reportTime">0 分钟</span>
+                    </div>
+                </div>
+                
+                <div class="report-card">
+                    <div class="report-title">💪 薄弱单词</div>
+                    <div class="word-list" id="weakWordsList"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 主题设置页面 -->
+        <div class="page theme-page" id="themePage">
+            <button class="back-btn" onclick="goHome()">←</button>
+            
+            <div class="header">
+                <div class="logo">🎨 主题设置</div>
+                <div class="subtitle">个性化你的学习空间</div>
+            </div>
+            
+            <div class="main-content">
+                <div class="editor-section">
+                    <div class="editor-title"><span>选择主题</span></div>
+                    
+                    <div class="theme-option active" onclick="selectTheme('nebula')">
+                        <div class="theme-preview" style="background: linear-gradient(135deg, #0a0a1a, #1a1a3e);"></div>
+                        <span class="theme-name">🌌 吞噬星空（默认）</span>
+                    </div>
+                    
+                    <div class="theme-option" onclick="selectTheme('ocean')">
+                        <div class="theme-preview" style="background: linear-gradient(135deg, #001a33, #003366);"></div>
+                        <span class="theme-name">🌊 深海星空</span>
+                    </div>
+                    
+                    <div class="theme-option" onclick="selectTheme('sunset')">
+                        <div class="theme-preview" style="background: linear-gradient(135deg, #1a0a1a, #3e1a1a);"></div>
+                        <span class="theme-name">🌅 落日余晖</span>
+                    </div>
+                    
+                    <div class="theme-option" onclick="selectTheme('forest')">
+                        <div class="theme-preview" style="background: linear-gradient(135deg, #0a1a0a, #1a3e1a);"></div>
+                        <span class="theme-name">🌲 森林幽谷</span>
+                    </div>
+                </div>
+                
+                <div class="editor-section">
+                    <div class="editor-title"><span>吉祥物</span></div>
+                    
+                    <div class="theme-option active" onclick="selectMascot('babata')">
+                        <div class="theme-preview" style="background: linear-gradient(135deg, #7b2cbf, #4a00e0);display:flex;align-items:center;justify-content:center;font-size:20px;">🤖</div>
+                        <span class="theme-name">🤖 巴巴塔</span>
+                    </div>
+                    
+                    <div class="theme-option" onclick="selectMascot('robot')">
+                        <div class="theme-preview" style="background: linear-gradient(135deg, #00d4ff, #0099cc);display:flex;align-items:center;justify-content:center;font-size:20px;">🦾</div>
+                        <span class="theme-name">🦾 机甲战士</span>
+                    </div>
+                    
+                    <div class="theme-option" onclick="selectMascot('star')">
+                        <div class="theme-preview" style="background: linear-gradient(135deg, #ffd700, #ff8c00);display:flex;align-items:center;justify-content:center;font-size:20px;">⭐</div>
+                        <span class="theme-name">⭐ 星际之星</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 家长中心页面 -->
+        <div class="page parent-page" id="parentPage">
+            <button class="back-btn" onclick="goHome()">←</button>
+            
+            <div class="header">
+                <div class="logo">👨‍👩‍👧 家长中心</div>
+                <div class="subtitle">管理孩子的学习</div>
+            </div>
+            
+            <div class="main-content" id="parentContent">
+                <div class="parent-section">
+                    <div class="parent-section-title">
+                        <span>学习设置</span>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">每日目标（单词数）</span>
+                        <input type="number" class="setting-input" id="parentDailyGoal" value="20" onchange="saveParentSettings()">
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">启用时间限制</span>
+                        <div class="setting-toggle" id="timeLimitToggle" onclick="toggleTimeLimit()"></div>
+                    </div>
+                    <div class="setting-row" id="timeLimitRow" style="display:none;">
+                        <span class="setting-label">每日学习时长（分钟）</span>
+                        <input type="number" class="setting-input" id="parentTimeLimit" value="30" onchange="saveParentSettings()">
+                    </div>
+                </div>
+                
+                <div class="parent-section">
+                    <div class="parent-section-title">
+                        <span>学习数据</span>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">今日学习</span>
+                        <span class="report-stat-value" id="parentTodayWords">0 单词</span>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">本周学习</span>
+                        <span class="report-stat-value" id="parentWeekWords">0 单词</span>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">累计学习</span>
+                        <span class="report-stat-value" id="parentTotalWords">0 单词</span>
+                    </div>
+                </div>
+                
+                <div class="parent-section">
+                    <div class="parent-section-title">
+                        <span>数据管理</span>
+                    </div>
+                    <div class="data-actions">
+                        <button class="btn btn-small btn-secondary" onclick="exportAllData()">📋 导出全部数据</button>
+                        <button class="btn btn-small btn-primary" onclick="clearAllProgress()">🗑️ 清除进度</button>
+                    </div>
+                </div>
+                
+                <div class="parent-section">
+                    <div class="parent-section-title">
+                        <span>修改 PIN 码</span>
+                    </div>
+                    <div class="pin-input">
+                        <input type="password" class="pin-digit" maxlength="1" id="pin1">
+                        <input type="password" class="pin-digit" maxlength="1" id="pin2">
+                        <input type="password" class="pin-digit" maxlength="1" id="pin3">
+                        <input type="password" class="pin-digit" maxlength="1" id="pin4">
+                    </div>
+                    <button class="btn btn-primary" style="width:100%;" onclick="savePIN()">保存 PIN 码</button>
+                </div>
             </div>
         </div>
     </div>
@@ -2358,9 +2914,180 @@
             document.getElementById('excelFileInput').value = '';
         }
         
+        // ==================== P3 阶段功能 ====================
+        
+        // 每日任务系统
+        var dailyTask = { goal: 20, completed: 0, streak: 0, maxStreak: 0, lastDate: '', history: [] };
+        
+        function loadDailyTask() {
+            var saved = localStorage.getItem('dailyTask_v1');
+            if (saved) { try { var p = JSON.parse(saved); dailyTask.goal=p.goal||20; dailyTask.completed=p.completed||0; dailyTask.streak=p.streak||0; dailyTask.maxStreak=p.maxStreak||0; dailyTask.lastDate=p.lastDate||''; dailyTask.history=p.history||[]; } catch(e){} }
+            var today = new Date().toDateString();
+            if (dailyTask.lastDate !== today) {
+                if (dailyTask.lastDate) { var y=new Date(); y.setDate(y.getDate()-1); dailyTask.streak=(dailyTask.lastDate===y.toDateString())?dailyTask.streak+1:0; }
+                dailyTask.completed=0; dailyTask.lastDate=today;
+                if(dailyTask.streak>dailyTask.maxStreak) dailyTask.maxStreak=dailyTask.streak;
+                saveDailyTask();
+            }
+            updateDailyTaskDisplay();
+        }
+        function saveDailyTask() { localStorage.setItem('dailyTask_v1', JSON.stringify(dailyTask)); }
+        
+        function updateDailyTaskDisplay() {
+            var tt=document.getElementById('dailyTaskText'), ts=document.getElementById('taskStreakText');
+            if(tt) tt.textContent='今日任务: '+dailyTask.completed+'/'+dailyTask.goal+' 单词';
+            if(ts) ts.textContent='🔥 '+dailyTask.streak+'天';
+            var pc=document.getElementById('taskProgressCircle');
+            if(pc){ var c=2*Math.PI*60; pc.style.strokeDashoffset=c-(dailyTask.completed/dailyTask.goal)*c; }
+            var pn=document.getElementById('taskProgressNumber'), gn=document.getElementById('taskGoalNumber');
+            if(pn) pn.textContent=dailyTask.completed;
+            if(gn) gn.textContent=dailyTask.goal;
+            var sd=document.getElementById('streakDays'), msd=document.getElementById('maxStreakDays');
+            if(sd) sd.textContent=dailyTask.streak+' 天';
+            if(msd) msd.textContent=dailyTask.maxStreak+' 天';
+            renderTaskDays();
+        }
+        
+        function renderTaskDays() {
+            var c=document.getElementById('taskDays'); if(!c) return;
+            c.innerHTML=''; var ds=['日','一','二','三','四','五','六']; var t=new Date();
+            for(var i=6;i>=0;i--){ var d=new Date(); d.setDate(t.getDate()-i); var dc=dailyTask.history.some(function(h){return h.date===d.toDateString()&&h.completed>=dailyTask.goal});
+                var el=document.createElement('div'); el.className='task-day'+(dc?' completed':'')+(i===0?' today':''); el.textContent=ds[d.getDay()]; c.appendChild(el); }
+        }
+        
+        function showDailyTask() { loadDailyTask(); showPage('dailyTaskPage'); }
+        function editDailyTask() {
+            var ng=prompt('请输入每日目标单词数：',dailyTask.goal);
+            if(ng&&!isNaN(ng)&&ng>0){ dailyTask.goal=parseInt(ng); saveDailyTask(); updateDailyTaskDisplay(); showFeedback('目标已更新为 '+ng+' 单词',true); }
+        }
+        function addDailyProgress(cnt) {
+            dailyTask.completed+=cnt; var td=new Date().toDateString();
+            var hi=dailyTask.history.find(function(h){return h.date===td});
+            if(hi) hi.completed+=cnt; else dailyTask.history.push({date:td,completed:cnt});
+            var ta=new Date(); ta.setDate(ta.getDate()-30);
+            dailyTask.history=dailyTask.history.filter(function(h){return new Date(h.date)>=ta});
+            saveDailyTask(); updateDailyTaskDisplay();
+        }
+        
+        // 学习报告
+        var currentReportType='week';
+        function showReports(){ loadDailyTask(); loadWrongBook(); loadAchievements(); switchReport('week'); showPage('reportPage'); }
+        function switchReport(t){ currentReportType=t;
+            var ts=document.querySelectorAll('.report-tab');
+            for(var i=0;i<ts.length;i++) ts[i].classList.remove('active');
+            event.target.classList.add('active'); generateReport();
+        }
+        function generateReport() {
+            var dys=currentReportType==='week'?7:30, studyDays=0,totalWords=0,dayData=[];
+            for(var i=0;i<dys;i++){ var d=new Date(); d.setDate(d.getDate()-(dys-1-i)); var ds=d.toDateString();
+                var hi=dailyTask.history.find(function(h){return h.date===ds}); var dw=hi?hi.completed:0;
+                if(dw>0) studyDays++; totalWords+=dw; dayData.push(dw); }
+            var acc=totalWords>0?Math.round((achievements.totalCorrect||0)/(totalWords+1)*100):0;
+            document.getElementById('reportDays').textContent=studyDays+' 天';
+            document.getElementById('reportWords').textContent=totalWords+' 个';
+            document.getElementById('reportAccuracy').textContent=acc+'%';
+            document.getElementById('reportTime').textContent=Math.round(totalWords*0.5)+' 分钟';
+            renderReportChart(dayData); renderWeakWords();
+        }
+        function renderReportChart(data) {
+            var c=document.getElementById('reportChart'); c.innerHTML='';
+            var mv=Math.max.apply(null,data)||1;
+            for(var i=0;i<data.length;i++){ var h=(data[i]/mv)*100;
+                var w=document.createElement('div'); w.style.textAlign='center';
+                var b=document.createElement('div'); b.className='report-bar'; b.style.height=Math.max(h,5)+'px';
+                var l=document.createElement('div'); l.className='report-bar-label'; l.textContent=data[i];
+                w.appendChild(b); w.appendChild(l); c.appendChild(w); }
+        }
+        function renderWeakWords() {
+            var c=document.getElementById('weakWordsList'); c.innerHTML='';
+            if(!wrongBook||wrongBook.length===0){ c.innerHTML='<div style="text-align:center;color:#666;padding:20px;">太棒了！没有薄弱单词！</div>'; return; }
+            var s=wrongBook.slice().sort(function(a,b){return(b.count||1)-(a.count||1)}).slice(0,10);
+            for(var i=0;i<s.length;i++){ var it=document.createElement('div'); it.className='word-item';
+                it.innerHTML='<div class="word-info"><div class="word-en">'+s[i].word+'</div><div class="word-cn">'+s[i].meaning+'</div></div><div style="color:#ff6b6b;font-size:12px;">❌ '+(s[i].count||1)+'</div>';
+                c.appendChild(it); }
+        }
+        
+        // 主题设置
+        var currentTheme='nebula', currentMascot='babata';
+        function loadThemeSettings(){ var s=localStorage.getItem('themeSettings_v1'); if(s){try{var p=JSON.parse(s);currentTheme=p.theme||'nebula';currentMascot=p.mascot||'babata';}catch(e){}}applyTheme();}
+        function applyTheme(){
+            var th={nebula:'linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0d0d2b 100%)',ocean:'linear-gradient(135deg, #001a33 0%, #003366 50%, #001a33 100%)',sunset:'linear-gradient(135deg, #1a0a1a 0%, #3e1a1a 50%, #2a0a0a 100%)',forest:'linear-gradient(135deg, #0a1a0a 0%, #1a3e1a 50%, #0a1a0a 100%)'};
+            var ms={babata:'🤖',robot:'🦾',star:'⭐'};
+            document.body.style.background=th[currentTheme]||th.nebula;
+            var mi=document.querySelector('.mech-icon'); if(mi) mi.textContent=ms[currentMascot]||ms.babata;
+        }
+        function selectTheme(t){ currentTheme=t; saveThemeSettings(); applyTheme(); showFeedback('主题已更换',true); }
+        function selectMascot(m){ currentMascot=m; saveThemeSettings(); applyTheme(); showFeedback('吉祥物已更换',true); }
+        function saveThemeSettings(){ localStorage.setItem('themeSettings_v1',JSON.stringify({theme:currentTheme,mascot:currentMascot})); }
+        function showThemeSettings(){ showPage('themePage'); }
+        
+        // 家长中心
+        var parentSettings={dailyGoal:20,timeLimitEnabled:false,timeLimit:30,pin:''};
+        function loadParentSettings(){
+            var s=localStorage.getItem('parentSettings_v1');
+            if(s){try{var p=JSON.parse(s);parentSettings.dailyGoal=p.dailyGoal||20;parentSettings.timeLimitEnabled=p.timeLimitEnabled||false;parentSettings.timeLimit=p.timeLimit||30;parentSettings.pin=p.pin||'';}catch(e){}}
+            document.getElementById('parentDailyGoal').value=parentSettings.dailyGoal;
+            document.getElementById('parentTimeLimit').value=parentSettings.timeLimit;
+            document.getElementById('timeLimitRow').style.display=parentSettings.timeLimitEnabled?'flex':'none';
+            if(parentSettings.timeLimitEnabled) document.getElementById('timeLimitToggle').classList.add('active');
+            updateParentStats();
+        }
+        function saveParentSettings(){
+            parentSettings.dailyGoal=parseInt(document.getElementById('parentDailyGoal').value)||20;
+            parentSettings.timeLimit=parseInt(document.getElementById('parentTimeLimit').value)||30;
+            localStorage.setItem('parentSettings_v1',JSON.stringify(parentSettings));
+            dailyTask.goal=parentSettings.dailyGoal; saveDailyTask(); updateDailyTaskDisplay();
+            showFeedback('设置已保存',true);
+        }
+        function toggleTimeLimit(){
+            parentSettings.timeLimitEnabled=!parentSettings.timeLimitEnabled;
+            document.getElementById('timeLimitToggle').classList.toggle('active');
+            document.getElementById('timeLimitRow').style.display=parentSettings.timeLimitEnabled?'flex':'none';
+            saveParentSettings();
+        }
+        function updateParentStats(){
+            var tw=achievements.totalCorrect||0;
+            var wd=0; for(var i=0;i<(dailyTask.history||[]).length;i++) wd+=dailyTask.history[i].completed;
+            document.getElementById('parentTodayWords').textContent=dailyTask.completed+' 单词';
+            document.getElementById('parentWeekWords').textContent=wd+' 单词';
+            document.getElementById('parentTotalWords').textContent=tw+' 单词';
+        }
+        function showParentMode(){ loadParentSettings(); showPage('parentPage'); }
+        function savePIN(){
+            var p=document.getElementById('pin1').value+document.getElementById('pin2').value+document.getElementById('pin3').value+document.getElementById('pin4').value;
+            if(p.length===4){ parentSettings.pin=p; saveParentSettings(); showFeedback('PIN码已设置',true);
+                document.getElementById('pin1').value='';document.getElementById('pin2').value='';document.getElementById('pin3').value='';document.getElementById('pin4').value='';
+            }else{ alert('请输入4位PIN码'); }
+        }
+        function exportAllData(){
+            var data={wordBank:wordBank,wrongBook:wrongBook,achievements:achievements,dailyTask:dailyTask,parentSettings:parentSettings};
+            document.getElementById('dataTextarea').value=JSON.stringify(data,null,2);
+            showFeedback('已导出到文本框',true);
+        }
+        function clearAllProgress(){
+            if(confirm('确定要清除所有学习进度吗？此操作不可恢复！')){
+                achievements={streak:0,bestStreak:0,totalCorrect:0,totalAnswered:0,stars:0};
+                wrongBook=[]; dailyTask.completed=0; dailyTask.streak=0; dailyTask.history=[];
+                saveAchievements(); saveWrongBook(); saveDailyTask(); updateParentStats();
+                showFeedback('进度已清除',true);
+            }
+        }
+        
+        // 初始化
+        function initP3(){ loadDailyTask(); loadThemeSettings(); loadParentSettings(); }
+        
+        // 练习完成后增加每日进度
+        var _checkAnswer=checkAnswer; checkAnswer=function(){
+            _checkAnswer.apply(this,arguments); addDailyProgress(1); updateParentStats();
+        };
+        var _checkChoice=checkChoice; checkChoice=function(a,b){
+            _checkChoice.apply(this,[a,b]); addDailyProgress(1); updateParentStats();
+        };
+        
         // 初始化时加载数据
         loadWrongBook();
         loadAchievements();
+        initP3();
     </script>
 </body>
 </html>
