@@ -136,17 +136,18 @@
         }
         
         .mech-icon {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             background: linear-gradient(135deg, #1a1a3e, #2d2d5a);
-            border-radius: 16px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
+            font-size: 50px;
             border: 2px solid #00d4ff;
-            box-shadow: 0 0 20px rgba(0,212,255,0.3), inset 0 0 20px rgba(0,212,255,0.1);
+            box-shadow: 0 0 30px rgba(0,212,255,0.4), inset 0 0 25px rgba(0,212,255,0.15);
             animation: pulse 2s infinite;
+            cursor: pointer;
         }
         
         @keyframes pulse {
@@ -156,43 +157,47 @@
         
         .mode-buttons {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 10px;
             width: 100%;
-            max-width: 280px;
+            max-width: 360px;
         }
         
-        .btn {
-            padding: 14px 24px;
+        .mode-buttons .btn {
+            flex: 1 1 calc(33.33% - 10px);
+            min-width: 100px;
+            padding: 12px 8px;
             border: none;
             border-radius: 10px;
-            font-size: 15px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
             -webkit-touch-callout: none;
+            text-align: center;
         }
         
-        .btn-primary {
+        .mode-buttons .btn-primary {
             background: linear-gradient(135deg, #00d4ff, #0099cc);
             color: #000;
             box-shadow: 0 4px 15px rgba(0,212,255,0.4);
         }
         
-        .btn-primary:active {
+        .mode-buttons .btn-primary:active {
             transform: scale(0.98);
             box-shadow: 0 2px 10px rgba(0,212,255,0.3);
         }
         
-        .btn-secondary {
+        .mode-buttons .btn-secondary {
             background: linear-gradient(135deg, #7b2cbf, #4a00e0);
             color: #fff;
             box-shadow: 0 4px 15px rgba(123,44,191,0.4);
         }
         
-        .btn-secondary:active {
+        .mode-buttons .btn-secondary:active {
             transform: scale(0.98);
         }
         
@@ -486,26 +491,30 @@
         
         .unit-tabs {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             flex-wrap: wrap;
             justify-content: center;
         }
         
         .unit-tab {
-            padding: 6px 12px;
-            border: 1px solid rgba(0,212,255,0.3);
-            border-radius: 15px;
-            background: transparent;
+            padding: 10px 16px;
+            border: 1px solid rgba(0,212,255,0.4);
+            border-radius: 12px;
+            background: rgba(0,212,255,0.1);
             color: #fff;
-            font-size: 12px;
+            font-size: 14px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
+            min-width: 50px;
+            text-align: center;
         }
         
         .unit-tab.active {
             background: linear-gradient(135deg, #00d4ff, #0099cc);
             border-color: #00d4ff;
             color: #000;
+            box-shadow: 0 0 15px rgba(0,212,255,0.5);
         }
         
         /* 词库编辑页面 */
@@ -1226,7 +1235,7 @@
                 <div class="subtitle">吞噬星空 · 沪教牛津六年级下册</div>
             </div>
             
-            <div class="mech-icon">🤖</div>
+            <div class="mech-icon" onclick="showThemeSettings()">🤖</div>
             
             <div class="unit-selector">
                 <label>选择训练单元</label>
@@ -2367,33 +2376,90 @@
             }
         });
         
+        // 答题音效
+        function playFeedbackSound(isCorrect) {
+            try {
+                // 使用 Web Audio API 生成简单的提示音
+                var AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                
+                var ctx = new AudioContext();
+                var osc = ctx.createOscillator();
+                var gain = ctx.createGain();
+                
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                
+                if (isCorrect) {
+                    // 正确：上升音调
+                    osc.frequency.setValueAtTime(523, ctx.currentTime); // C5
+                    osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1); // E5
+                    osc.frequency.setValueAtTime(784, ctx.currentTime + 0.2); // G5
+                    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+                    osc.start(ctx.currentTime);
+                    osc.stop(ctx.currentTime + 0.4);
+                } else {
+                    // 错误：下降音调
+                    osc.frequency.setValueAtTime(300, ctx.currentTime);
+                    osc.frequency.setValueAtTime(200, ctx.currentTime + 0.15);
+                    osc.frequency.setValueAtTime(150, ctx.currentTime + 0.3);
+                    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+                    osc.start(ctx.currentTime);
+                    osc.stop(ctx.currentTime + 0.4);
+                }
+            } catch (e) {}
+        }
+        
+        // 播放单词发音（播放两遍，有间隔）
         function playAudio() {
             var word = currentWords[currentIndex];
             if (!word) return;
             
+            playWordSound(word.word);
+        }
+        
+        function playWordSound(wordText) {
             try {
-                var audioUrl = 'https://dict.youdao.com/dictvoice?type=2&audio=' + encodeURIComponent(word.word);
+                var audioUrl = 'https://dict.youdao.com/dictvoice?type=2&audio=' + encodeURIComponent(wordText);
                 var audio = new Audio(audioUrl);
                 
-                var playPromise = audio.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(function(err) {
-                        // 降级方案
-                        if ('speechSynthesis' in window) {
-                            var utterance = new SpeechSynthesisUtterance(word.word);
-                            utterance.lang = 'en-US';
-                            utterance.rate = 0.8;
-                            speechSynthesis.speak(utterance);
-                        }
-                    });
-                }
+                // 播放第一遍
+                audio.play();
+                
+                // 设置播放第二遍（间隔1秒）
+                audio.addEventListener('ended', function() {
+                    setTimeout(function() {
+                        var audio2 = new Audio(audioUrl);
+                        audio2.play();
+                    }, 1000);
+                });
+                
+                audio.addEventListener('error', function() {
+                    // 降级到语音合成
+                    playSpeechSynthesis(wordText);
+                });
             } catch (e) {
-                if ('speechSynthesis' in window) {
-                    var utterance = new SpeechSynthesisUtterance(word.word);
-                    utterance.lang = 'en-US';
-                    utterance.rate = 0.8;
-                    speechSynthesis.speak(utterance);
-                }
+                playSpeechSynthesis(wordText);
+            }
+        }
+        
+        function playSpeechSynthesis(wordText) {
+            if ('speechSynthesis' in window) {
+                var utterance = new SpeechSynthesisUtterance(wordText);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.8;
+                speechSynthesis.speak(utterance);
+                
+                utterance.onend = function() {
+                    setTimeout(function() {
+                        var utt2 = new SpeechSynthesisUtterance(wordText);
+                        utt2.lang = 'en-US';
+                        utt2.rate = 0.8;
+                        speechSynthesis.speak(utt2);
+                    }, 1000);
+                };
             }
         }
         
@@ -2482,6 +2548,9 @@
         }
         
         function showFeedback(message, isCorrect) {
+            // 播放音效
+            playFeedbackSound(isCorrect);
+            
             var feedback = document.getElementById('feedback');
             feedback.textContent = message;
             feedback.className = 'feedback ' + (isCorrect ? 'correct' : 'wrong') + ' show';
