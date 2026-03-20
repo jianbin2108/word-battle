@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单测试</title>
+    <style>
+        body { 
+            font-family: Arial; 
+            padding: 20px; 
+            background: #1a1a3e;
+            color: white;
+        }
+        .btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 10px;
+            background: #00d4ff;
+            border: none;
+            border-radius: 8px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #00ff88;
+        }
+    </style>
+</head>
+<body>
+    <h1>吞噬星空单词测试</h1>
+    <p>点击按钮测试功能</p>
+    
+    <button class="btn" onclick="testWord()">显示单词</button>
+    <button class="btn" onclick="playSound()">播放发音</button>
+    
+    <div id="result"></div>
+    
+    <script>
+        var words = [
+            { word: "weigh", meaning: "重" },
+            { word: "kilogram", meaning: "千克" },
+            { word: "life", meaning: "生活" }
+        ];
+        
+        var current = 0;
+        
+        function testWord() {
+            var w = words[current];
+            document.getElementById('result').innerHTML = 
+                '<b>' + w.word + '</b><br>' + w.meaning;
+            current = (current + 1) % words.length;
+        }
+        
+        function playSound() {
+            var w = words[current];
+            var audio = new Audio('https://dict.youdao.com/dictvoice?type=2&audio=' + w.word);
+            audio.play().catch(function(e) {
+                alert('播放失败: ' + e.message);
+            });
+        }
+        
+        // 页面加载完成提示
+        window.onload = function() {
+            document.getElementById('result').innerHTML = '页面加载成功！';
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>调试测试</title>
+    <style>
+        body { 
+            font-family: Arial; 
+            padding: 20px; 
+            background: #1a1a3e;
+            color: white;
+            font-size: 16px;
+        }
+        .btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 10px 0;
+            background: #00d4ff;
+            border: none;
+            border-radius: 8px;
+            display: block;
+            width: 100%;
+        }
+        #log {
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 8px;
+            min-height: 100px;
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .success { color: #00ff88; }
+        .error { color: #ff4444; }
+    </style>
+</head>
+<body>
+    <h1>调试模式</h1>
+    <p>点击下面按钮，观察下方日志</p>
+    
+    <button class="btn" id="btn1">测试1: 直接修改HTML</button>
+    <button class="btn" id="btn2">测试2: 使用变量</button>
+    <button class="btn" id="btn3">测试3: 播放音频</button>
+    
+    <div id="log">等待点击...</div>
+    
+    <script>
+        // 使用最传统的写法
+        function log(msg, isError) {
+            var div = document.getElementById('log');
+            var p = document.createElement('div');
+            p.innerHTML = (isError ? '❌ ' : '✓ ') + msg;
+            p.className = isError ? 'error' : 'success';
+            div.appendChild(p);
+        }
+        
+        // 测试1: 最简单的DOM操作
+        document.getElementById('btn1').onclick = function() {
+            try {
+                document.getElementById('log').innerHTML = '<div class="success">测试1成功！直接修改HTML正常</div>';
+            } catch(e) {
+                log('测试1失败: ' + e.message, true);
+            }
+        };
+        
+        // 测试2: 使用数组变量
+        document.getElementById('btn2').onclick = function() {
+            try {
+                var words = ['weigh', 'kilogram', 'life'];
+                var word = words[0];
+                log('测试2成功！单词是: ' + word);
+            } catch(e) {
+                log('测试2失败: ' + e.message, true);
+            }
+        };
+        
+        // 测试3: 音频播放
+        document.getElementById('btn3').onclick = function() {
+            try {
+                var audio = new Audio();
+                audio.src = 'https://dict.youdao.com/dictvoice?type=2&audio=hello';
+                
+                audio.oncanplay = function() {
+                    log('音频可以播放，尝试播放...');
+                    audio.play().then(function() {
+                        log('音频播放成功！');
+                    }).catch(function(e) {
+                        log('音频播放失败: ' + e.message, true);
+                    });
+                };
+                
+                audio.onerror = function() {
+                    log('音频加载失败', true);
+                };
+                
+                log('音频对象创建成功，正在加载...');
+            } catch(e) {
+                log('测试3失败: ' + e.message, true);
+            }
+        };
+        
+        // 页面加载提示
+        log('页面加载完成，JavaScript已运行');
+    </script>
+</body>
+</html>
