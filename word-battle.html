@@ -132,7 +132,7 @@
             justify-content: flex-start;
             align-items: center;
             padding-top: 10px;
-            gap: 12px;
+            gap: 15px;
         }
         
         .mech-icon {
@@ -159,18 +159,19 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             width: 100%;
-            max-width: 360px;
+            max-width: 600px;
+            padding: 0 10px;
         }
         
         .mode-buttons .btn {
-            flex: 1 1 calc(33.33% - 10px);
-            min-width: 100px;
-            padding: 12px 8px;
+            flex: 1 1 calc(33.33% - 12px);
+            min-width: 120px;
+            padding: 16px 10px;
             border: none;
-            border-radius: 10px;
-            font-size: 13px;
+            border-radius: 12px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
@@ -381,6 +382,13 @@
         
         .controls .btn {
             flex: 1;
+            padding: 18px 20px;
+            font-size: 17px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
         }
         
         /* 反馈区域 */
@@ -477,9 +485,10 @@
         
         /* 单元选择 */
         .unit-selector {
-            margin-bottom: 15px;
+            margin-bottom: 5px;
             width: 100%;
-            max-width: 320px;
+            max-width: 600px;
+            padding: 0 10px;
         }
         
         .unit-selector label {
@@ -595,8 +604,17 @@
         .add-word-form {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
             margin-top: 10px;
+        }
+        
+        .add-word-form .btn {
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
         }
         
         .form-input {
@@ -893,11 +911,11 @@
             background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,165,0,0.15));
             border: 1px solid rgba(255,215,0,0.4);
             border-radius: 12px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             cursor: pointer;
             transition: all 0.3s;
             width: 100%;
-            max-width: 320px;
+            max-width: 600px;
         }
         
         .daily-task-bar:active {
@@ -1208,6 +1226,289 @@
             border-color: #00d4ff;
             outline: none;
         }
+
+        /* ===== 积分&连击系统 ===== */
+        .combo-hud {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+            pointer-events: none;
+        }
+        .combo-counter {
+            background: linear-gradient(135deg, rgba(123,44,191,0.85), rgba(74,0,224,0.85));
+            border: 1px solid rgba(123,44,191,0.8);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s;
+        }
+        .combo-counter.combo-fire {
+            background: linear-gradient(135deg, rgba(255,100,0,0.9), rgba(255,50,0,0.9));
+            border-color: #ff6400;
+            box-shadow: 0 0 20px rgba(255,100,0,0.6);
+            animation: comboShake 0.4s ease;
+        }
+        .energy-bar-wrap {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(0,212,255,0.4);
+            border-radius: 10px;
+            width: 80px;
+            height: 10px;
+            overflow: hidden;
+        }
+        .energy-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            border-radius: 10px;
+            transition: width 0.4s;
+        }
+        .crystal-count {
+            font-size: 13px;
+            font-weight: 700;
+            color: #00d4ff;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(0,212,255,0.4);
+            border-radius: 12px;
+            padding: 4px 10px;
+        }
+        @keyframes comboShake {
+            0%,100% { transform: translateX(0) scale(1); }
+            25% { transform: translateX(-4px) scale(1.1); }
+            75% { transform: translateX(4px) scale(1.1); }
+        }
+        /* Combo爆发特效 */
+        .combo-burst {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 52px;
+            font-weight: 900;
+            z-index: 2000;
+            pointer-events: none;
+            opacity: 0;
+            text-shadow: 0 0 30px currentColor;
+        }
+        .combo-burst.show {
+            animation: comboBurst 0.8s ease forwards;
+        }
+        @keyframes comboBurst {
+            0%   { opacity: 0; transform: translate(-50%,-50%) scale(0.3); }
+            40%  { opacity: 1; transform: translate(-50%,-50%) scale(1.3); }
+            70%  { opacity: 1; transform: translate(-50%,-50%) scale(1.0); }
+            100% { opacity: 0; transform: translate(-50%,-50%) scale(1.5); }
+        }
+        /* 能量晶体飞出特效 */
+        .crystal-fly {
+            position: fixed;
+            z-index: 1500;
+            font-size: 22px;
+            pointer-events: none;
+            animation: crystalFly 0.8s ease forwards;
+        }
+        @keyframes crystalFly {
+            0%   { opacity: 1; transform: translate(0,0) scale(1); }
+            100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.3); }
+        }
+        /* 过关动画 */
+        .clear-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 3000;
+            background: rgba(0,0,0,0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s;
+        }
+        .clear-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .clear-title {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(90deg, #ffd700, #ff6400, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: clearPulse 1s ease infinite alternate;
+        }
+        .clear-stars {
+            font-size: 42px;
+            letter-spacing: 8px;
+        }
+        .clear-stats {
+            font-size: 20px;
+            color: #fff;
+            text-align: center;
+            line-height: 2;
+        }
+        @keyframes clearPulse {
+            from { filter: drop-shadow(0 0 10px #ffd700); }
+            to   { filter: drop-shadow(0 0 30px #ff6400); }
+        }
+        /* 星际跃迁背景 */
+        .warp-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2500;
+            pointer-events: none;
+            opacity: 0;
+            background: radial-gradient(ellipse at center, transparent 0%, #0a0a1a 80%);
+        }
+        .warp-overlay.show {
+            animation: warpEffect 1.5s ease forwards;
+        }
+        .warp-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            height: 1px;
+            width: 200px;
+            border-radius: 1px;
+            opacity: 0.7;
+        }
+        @keyframes warpEffect {
+            0%   { opacity: 0; }
+            20%  { opacity: 1; }
+            80%  { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* ===== 机甲解锁系统 ===== */
+        .mech-page {
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 60px;
+        }
+        .mech-showcase {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #1a1a3e, #2d2d5a);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 72px;
+            border: 2px solid #00d4ff;
+            box-shadow: 0 0 40px rgba(0,212,255,0.5);
+            margin: 10px auto 5px;
+            animation: pulse 2s infinite;
+        }
+        .mech-name {
+            font-size: 20px;
+            font-weight: 800;
+            color: #00d4ff;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+        .mech-desc {
+            font-size: 13px;
+            color: #aaa;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .parts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            width: 100%;
+            max-width: 400px;
+            padding: 0 10px;
+            margin-bottom: 15px;
+        }
+        .part-card {
+            background: rgba(0,212,255,0.07);
+            border: 2px solid rgba(0,212,255,0.25);
+            border-radius: 14px;
+            padding: 14px 8px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s;
+        }
+        .part-card.unlocked {
+            background: rgba(0,212,255,0.18);
+            border-color: #00d4ff;
+            box-shadow: 0 0 15px rgba(0,212,255,0.3);
+        }
+        .part-card.locked {
+            opacity: 0.5;
+            filter: grayscale(0.6);
+        }
+        .part-icon { font-size: 32px; margin-bottom: 6px; }
+        .part-name { font-size: 12px; font-weight: 700; color: #fff; }
+        .part-req  { font-size: 11px; color: #888; margin-top: 2px; }
+        .part-lock {
+            position: absolute;
+            top: 6px; right: 6px;
+            font-size: 14px;
+        }
+        .mech-progress-bar {
+            width: 100%;
+            max-width: 380px;
+            height: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 0 10px 10px;
+        }
+        .mech-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            border-radius: 6px;
+            transition: width 0.6s;
+        }
+        .mech-progress-text {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 15px;
+        }
+        /* 解锁庆典弹窗 */
+        .unlock-toast {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            z-index: 4000;
+            background: linear-gradient(135deg, #1a1a3e, #2d2d5a);
+            border: 2px solid #ffd700;
+            border-radius: 20px;
+            padding: 30px 40px;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            box-shadow: 0 0 60px rgba(255,215,0,0.5);
+            transition: all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+        }
+        .unlock-toast.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: auto;
+        }
+        .unlock-toast-icon { font-size: 60px; margin-bottom: 10px; }
+        .unlock-toast-title { font-size: 22px; font-weight: 800; color: #ffd700; }
+        .unlock-toast-sub   { font-size: 15px; color: #aaa; margin-top: 6px; }
+        .unlock-toast-btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #000;
+            font-weight: 700;
+            font-size: 16px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+        }
     </style>
     <!-- SheetJS for Excel import -->
     <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
@@ -1226,6 +1527,37 @@
     
     <!-- 反馈弹窗 -->
     <div class="feedback" id="feedback"></div>
+    
+    <!-- 积分连击HUD -->
+    <div class="combo-hud" id="comboHud" style="display:none;">
+        <div class="crystal-count" id="crystalCount">💎 0</div>
+        <div class="combo-counter" id="comboCounter">🔥 0 Combo</div>
+        <div class="energy-bar-wrap">
+            <div class="energy-bar-fill" id="energyBarFill" style="width:0%"></div>
+        </div>
+    </div>
+    
+    <!-- Combo爆发特效 -->
+    <div class="combo-burst" id="comboBurst"></div>
+    
+    <!-- 过关动画覆层 -->
+    <div class="clear-overlay" id="clearOverlay">
+        <div class="clear-title" id="clearTitle">⚔️ 通关！</div>
+        <div class="clear-stars" id="clearStars">⭐⭐⭐</div>
+        <div class="clear-stats" id="clearStatsText"></div>
+        <button class="btn btn-primary" style="padding:16px 40px;font-size:18px;" onclick="hideClearOverlay()">继续 →</button>
+    </div>
+    
+    <!-- 星际跃迁背景 -->
+    <div class="warp-overlay" id="warpOverlay"></div>
+    
+    <!-- 机甲解锁庆典弹窗 -->
+    <div class="unlock-toast" id="unlockToast">
+        <div class="unlock-toast-icon" id="unlockToastIcon">🤖</div>
+        <div class="unlock-toast-title" id="unlockToastTitle">新部件解锁！</div>
+        <div class="unlock-toast-sub" id="unlockToastSub"></div>
+        <button class="unlock-toast-btn" onclick="hideUnlockToast()">太棒了！</button>
+    </div>
     
     <div class="container">
         <!-- 首页 -->
@@ -1293,6 +1625,9 @@
                 </button>
                 <button class="btn btn-secondary" onclick="showEditor()">
                     ⚙️ 词库管理
+                </button>
+                <button class="btn btn-secondary" onclick="showMechPage()">
+                    🔧 机甲解锁
                 </button>
             </div>
         </div>
@@ -1763,6 +2098,29 @@
                     </div>
                     <button class="btn btn-primary" style="width:100%;" onclick="savePIN()">保存 PIN 码</button>
                 </div>
+            </div>
+        </div>
+        
+        <!-- 机甲解锁系统页面 -->
+        <div class="page mech-page" id="mechPage">
+            <button class="back-btn" onclick="goHome()">←</button>
+            <div class="header">
+                <div class="logo">🔧 机甲解锁</div>
+                <div class="subtitle">用能量晶体解锁巴巴塔部件</div>
+            </div>
+            <div class="main-content" style="align-items:center;">
+                <div class="mech-showcase" id="mechShowcase">🤖</div>
+                <div class="mech-name" id="mechName">巴巴塔 MK-I</div>
+                <div class="mech-desc" id="mechDesc">基础形态，继续战斗解锁更多部件！</div>
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                    <span style="font-size:13px;color:#888;">解锁进度</span>
+                    <div class="mech-progress-bar" style="width:200px;margin:0;">
+                        <div class="mech-progress-fill" id="mechProgressFill" style="width:0%"></div>
+                    </div>
+                    <span class="mech-progress-text" style="margin:0;" id="mechProgressText">0/6</span>
+                </div>
+                <div style="font-size:14px;color:#00d4ff;margin-bottom:12px;">💎 <span id="mechCrystalCount">0</span> 能量晶体</div>
+                <div class="parts-grid" id="partsGrid"></div>
             </div>
         </div>
     </div>
@@ -2583,6 +2941,10 @@
             }
             
             showPage('resultPage');
+            // 触发过关特效
+            if (typeof showClearOverlay === 'function') {
+                setTimeout(function(){ showClearOverlay(correctCount, currentWords.length); }, 400);
+            }
         }
         
         function showPage(pageId) {
@@ -3157,6 +3519,262 @@
         loadWrongBook();
         loadAchievements();
         initP3();
+
+        // ==================== 积分&连击系统 ====================
+        var comboData = {
+            combo: 0,
+            maxCombo: 0,
+            crystals: 0,
+            energy: 0  // 0-100
+        };
+
+        function loadComboData() {
+            var saved = localStorage.getItem('comboData_v1');
+            if (saved) {
+                try { var p = JSON.parse(saved); comboData.crystals = p.crystals||0; comboData.maxCombo = p.maxCombo||0; } catch(e){}
+            }
+        }
+
+        function saveComboData() {
+            localStorage.setItem('comboData_v1', JSON.stringify({crystals: comboData.crystals, maxCombo: comboData.maxCombo}));
+        }
+
+        function showComboHud() {
+            document.getElementById('comboHud').style.display = 'flex';
+            updateComboHud();
+        }
+
+        function hideComboHud() {
+            document.getElementById('comboHud').style.display = 'none';
+        }
+
+        function updateComboHud() {
+            var counter = document.getElementById('comboCounter');
+            var crystalEl = document.getElementById('crystalCount');
+            var energyBar = document.getElementById('energyBarFill');
+            if (counter) {
+                counter.textContent = '🔥 ' + comboData.combo + ' Combo';
+                counter.classList.toggle('combo-fire', comboData.combo >= 5);
+            }
+            if (crystalEl) crystalEl.textContent = '💎 ' + comboData.crystals;
+            if (energyBar) energyBar.style.width = comboData.energy + '%';
+        }
+
+        function onCorrectAnswer() {
+            comboData.combo++;
+            comboData.energy = Math.min(100, comboData.energy + 15);
+            if (comboData.combo > comboData.maxCombo) comboData.maxCombo = comboData.combo;
+            
+            // 每3连击获得1颗能量晶体
+            if (comboData.combo % 3 === 0) {
+                comboData.crystals++;
+                spawnCrystalFly();
+                checkMechUnlock();
+            }
+            
+            // Combo里程碑特效
+            if (comboData.combo === 5)  showComboBurst('5 COMBO!', '#ffd700');
+            if (comboData.combo === 10) showComboBurst('10 COMBO!!', '#ff6400');
+            if (comboData.combo === 20) showComboBurst('UNSTOPPABLE!', '#00d4ff');
+            
+            updateComboHud();
+            saveComboData();
+            checkMechUnlock();
+        }
+
+        function onWrongAnswer() {
+            comboData.combo = 0;
+            comboData.energy = Math.max(0, comboData.energy - 20);
+            updateComboHud();
+            saveComboData();
+        }
+
+        function showComboBurst(text, color) {
+            var el = document.getElementById('comboBurst');
+            if (!el) return;
+            el.textContent = text;
+            el.style.color = color;
+            el.classList.remove('show');
+            void el.offsetWidth;
+            el.classList.add('show');
+            setTimeout(function(){ el.classList.remove('show'); }, 800);
+        }
+
+        function spawnCrystalFly() {
+            var el = document.createElement('div');
+            el.className = 'crystal-fly';
+            el.textContent = '💎';
+            // 从屏幕中心飞向右上角HUD
+            var sx = window.innerWidth/2, sy = window.innerHeight/2;
+            var tx = window.innerWidth - sx - 50, ty = -(sy - 30);
+            el.style.left = sx + 'px';
+            el.style.top  = sy + 'px';
+            el.style.setProperty('--tx', tx + 'px');
+            el.style.setProperty('--ty', ty + 'px');
+            document.body.appendChild(el);
+            setTimeout(function(){ el.remove(); }, 800);
+        }
+
+        // 过关动画
+        function showClearOverlay(correct, total) {
+            var stars = correct >= total ? 3 : correct >= total*0.7 ? 2 : 1;
+            var starStr = '⭐'.repeat(stars) + '☆'.repeat(3-stars);
+            document.getElementById('clearTitle').textContent = stars===3 ? '🎉 完美通关！' : stars===2 ? '⚔️ 胜利！' : '💪 继续加油！';
+            document.getElementById('clearStars').textContent = starStr;
+            document.getElementById('clearStatsText').innerHTML = 
+                '正确 <b style="color:#00ff88">'+ correct +'</b> / ' + total + ' 题<br>' +
+                '最高 Combo: <b style="color:#ffd700">'+ comboData.maxCombo +'</b><br>' +
+                '获得晶体: <b style="color:#00d4ff">💎 '+ (Math.floor(correct/3)) +'</b>';
+            document.getElementById('clearOverlay').classList.add('show');
+            // 触发星际跃迁
+            triggerWarp();
+        }
+
+        function hideClearOverlay() {
+            document.getElementById('clearOverlay').classList.remove('show');
+        }
+
+        function triggerWarp() {
+            var overlay = document.getElementById('warpOverlay');
+            overlay.innerHTML = '';
+            // 生成跃迁线条
+            for (var i = 0; i < 20; i++) {
+                var line = document.createElement('div');
+                line.className = 'warp-line';
+                line.style.top = Math.random()*100 + '%';
+                line.style.left = Math.random()*100 + '%';
+                line.style.width = (50 + Math.random()*150) + 'px';
+                line.style.transform = 'rotate(' + (Math.random()*360) + 'deg)';
+                line.style.animationDelay = (Math.random()*0.5) + 's';
+                overlay.appendChild(line);
+            }
+            overlay.classList.add('show');
+            setTimeout(function(){ overlay.classList.remove('show'); }, 1500);
+        }
+
+        // ==================== 机甲解锁系统 ====================
+        var MECH_PARTS = [
+            { id:'head',   name:'核心头部',  icon:'🪖', req: 3,  desc:'需要💎 3颗' },
+            { id:'arm_l',  name:'左臂炮台',  icon:'🦾', req: 8,  desc:'需要💎 8颗' },
+            { id:'arm_r',  name:'右臂护盾',  icon:'🛡️', req: 15, desc:'需要💎 15颗' },
+            { id:'chest',  name:'能量胸甲',  icon:'🔋', req: 25, desc:'需要💎 25颗' },
+            { id:'legs',   name:'推进腿部',  icon:'🚀', req: 40, desc:'需要💎 40颗' },
+            { id:'wings',  name:'星际翅翼',  icon:'🪽', req: 60, desc:'需要💎 60颗' }
+        ];
+
+        var MECH_FORMS = [
+            { minParts: 0, icon:'🤖', name:'巴巴塔 MK-I',   desc:'基础形态，继续战斗解锁更多部件！' },
+            { minParts: 1, icon:'🦿', name:'巴巴塔 MK-II',  desc:'头部解锁！战斗力大幅提升！' },
+            { minParts: 3, icon:'⚙️', name:'巴巴塔 MK-III', desc:'双臂解锁！进入战斗模式！' },
+            { minParts: 5, icon:'🤺', name:'巴巴塔 终极型', desc:'全身解锁！传说级星际战士！' }
+        ];
+
+        function getMechUnlocked() {
+            var saved = localStorage.getItem('mechUnlocked_v1');
+            if (saved) { try { return JSON.parse(saved); } catch(e){} }
+            return {};
+        }
+
+        function saveMechUnlocked(unlocked) {
+            localStorage.setItem('mechUnlocked_v1', JSON.stringify(unlocked));
+        }
+
+        function checkMechUnlock() {
+            var unlocked = getMechUnlocked();
+            var newUnlock = null;
+            MECH_PARTS.forEach(function(part) {
+                if (!unlocked[part.id] && comboData.crystals >= part.req) {
+                    unlocked[part.id] = true;
+                    newUnlock = part;
+                }
+            });
+            if (newUnlock) {
+                saveMechUnlocked(unlocked);
+                // 更新首页吉祥物
+                updateMechIcon();
+                // 显示解锁庆典
+                showUnlockToast(newUnlock);
+            }
+        }
+
+        function updateMechIcon() {
+            var unlocked = getMechUnlocked();
+            var count = Object.keys(unlocked).length;
+            var form = MECH_FORMS[0];
+            MECH_FORMS.forEach(function(f){ if(count >= f.minParts) form = f; });
+            var mechEl = document.querySelector('.mech-icon');
+            if (mechEl) mechEl.textContent = form.icon;
+        }
+
+        function showMechPage() {
+            loadComboData();
+            var unlocked = getMechUnlocked();
+            var count = Object.keys(unlocked).length;
+            var total = MECH_PARTS.length;
+            
+            // 更新展示区
+            var form = MECH_FORMS[0];
+            MECH_FORMS.forEach(function(f){ if(count >= f.minParts) form = f; });
+            document.getElementById('mechShowcase').textContent = form.icon;
+            document.getElementById('mechName').textContent = form.name;
+            document.getElementById('mechDesc').textContent = form.desc;
+            document.getElementById('mechProgressFill').style.width = Math.round(count/total*100) + '%';
+            document.getElementById('mechProgressText').textContent = count + '/' + total;
+            document.getElementById('mechCrystalCount').textContent = comboData.crystals;
+            
+            // 渲染部件格
+            var grid = document.getElementById('partsGrid');
+            grid.innerHTML = '';
+            MECH_PARTS.forEach(function(part) {
+                var isUnlocked = unlocked[part.id];
+                var card = document.createElement('div');
+                card.className = 'part-card ' + (isUnlocked ? 'unlocked' : 'locked');
+                card.innerHTML = 
+                    '<div class="part-icon">' + part.icon + '</div>' +
+                    '<div class="part-name">' + part.name + '</div>' +
+                    '<div class="part-req">' + (isUnlocked ? '✅ 已解锁' : part.desc) + '</div>' +
+                    '<div class="part-lock">' + (isUnlocked ? '' : '🔒') + '</div>';
+                grid.appendChild(card);
+            });
+            showPage('mechPage');
+        }
+
+        function showUnlockToast(part) {
+            document.getElementById('unlockToastIcon').textContent = part.icon;
+            document.getElementById('unlockToastTitle').textContent = '新部件解锁！';
+            document.getElementById('unlockToastSub').textContent = part.name + ' 已加入巴巴塔！';
+            document.getElementById('unlockToast').classList.add('show');
+        }
+
+        function hideUnlockToast() {
+            document.getElementById('unlockToast').classList.remove('show');
+        }
+
+        // ==================== 整合：答题时触发积分连击 ====================
+        // 包装原有的updateAchievements，同时触发连击系统
+        var _origUpdateAchievements = updateAchievements;
+        updateAchievements = function(isCorrect) {
+            _origUpdateAchievements(isCorrect);
+            if (isCorrect) { onCorrectAnswer(); } else { onWrongAnswer(); }
+        };
+
+        // 包装showPage，进入练习页时显示HUD，离开时隐藏
+        var _origShowPage = showPage;
+        showPage = function(pageId) {
+            _origShowPage(pageId);
+            if (pageId === 'practicePage') {
+                comboData.combo = 0;
+                comboData.energy = 0;
+                updateComboHud();
+                showComboHud();
+            } else {
+                hideComboHud();
+            }
+        };
+
+        // 初始化积分连击数据
+        loadComboData();
+        updateMechIcon();
     </script>
 </body>
 </html>
