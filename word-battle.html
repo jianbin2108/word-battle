@@ -405,6 +405,8 @@
             opacity: 0;
             pointer-events: none;
             transition: all 0.3s;
+            text-align: center;
+            min-width: 260px;
         }
         
         .feedback.show {
@@ -422,6 +424,44 @@
             background: linear-gradient(135deg, #ff4444, #cc3333);
             color: #fff;
             box-shadow: 0 8px 30px rgba(255,68,68,0.5);
+        }
+
+        /* 错误时停留的反馈面板 */
+        .feedback.wrong.stay {
+            pointer-events: auto;
+        }
+
+        .feedback-msg {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .feedback-correct-word {
+            display: block;
+            font-size: 26px;
+            letter-spacing: 2px;
+            margin: 8px 0 16px;
+            text-shadow: 0 0 12px rgba(255,255,255,0.6);
+        }
+
+        .feedback-next-btn {
+            display: inline-block;
+            margin-top: 4px;
+            padding: 10px 28px;
+            background: rgba(255,255,255,0.25);
+            border: 2px solid rgba(255,255,255,0.7);
+            border-radius: 30px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            letter-spacing: 1px;
+        }
+
+        .feedback-next-btn:hover, .feedback-next-btn:active {
+            background: rgba(255,255,255,0.45);
+            transform: scale(1.05);
         }
         
         /* 结果页面 */
@@ -806,7 +846,205 @@
             color: #fff;
         }
         
-        /* 错题本样式 */
+        /* ===== 听音默写 CSS ===== */
+
+        /* 首页按钮高亮 */
+        .dictation-btn {
+            background: linear-gradient(135deg, #f7971e, #ffd200) !important;
+            color: #1a1a1a !important;
+            border-color: transparent !important;
+        }
+
+        /* 设置卡片 */
+        .dictation-setting-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 16px;
+            padding: 18px 22px;
+            width: 100%;
+        }
+        .dictation-setting-label {
+            font-size: 15px;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 12px;
+        }
+        .dictation-setting-hint {
+            font-size: 12px;
+            color: #888;
+            margin-top: 8px;
+        }
+
+        /* 次数调节行 */
+        .dictation-repeat-row {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .repeat-adj-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid rgba(0,212,255,0.5);
+            background: rgba(0,212,255,0.1);
+            color: #00d4ff;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .repeat-adj-btn:active { background: rgba(0,212,255,0.3); }
+        .repeat-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #fff;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        /* 开关 */
+        .dictation-toggle-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .toggle-switch {
+            position: relative;
+            width: 52px;
+            height: 28px;
+        }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            background: #444;
+            border-radius: 28px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .toggle-slider:before {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            left: 3px;
+            top: 3px;
+            background: #fff;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+        .toggle-switch input:checked + .toggle-slider { background: #00d4ff; }
+        .toggle-switch input:checked + .toggle-slider:before { transform: translateX(24px); }
+
+        /* ===== 默写页 ===== */
+        .dictation-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            padding: 20px;
+        }
+        .dictation-progress-text {
+            font-size: 14px;
+            color: #aaa;
+            letter-spacing: 1px;
+        }
+        .dictation-meaning {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffd200;
+            min-height: 32px;
+            text-align: center;
+        }
+
+        /* 大播放按钮 */
+        .dictation-play-area {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        .dictation-play-btn {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 3px solid #00d4ff;
+            background: radial-gradient(circle at 40% 35%, rgba(0,212,255,0.25), rgba(0,0,60,0.8));
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            transition: transform 0.15s, box-shadow 0.2s;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 24px rgba(0,212,255,0.3);
+        }
+        .dictation-play-btn:active { transform: scale(0.94); }
+        .dictation-play-btn.playing {
+            border-color: #ffd200;
+            box-shadow: 0 0 30px rgba(255,210,0,0.5);
+            animation: dict-pulse 1.2s ease-in-out infinite;
+        }
+        @keyframes dict-pulse {
+            0%,100% { box-shadow: 0 0 20px rgba(255,210,0,0.4); }
+            50% { box-shadow: 0 0 45px rgba(255,210,0,0.8); }
+        }
+        .dict-play-icon { font-size: 42px; line-height: 1; }
+        .dict-play-label { font-size: 14px; color: #aaa; }
+
+        /* 脉冲圆圈 */
+        .dictation-play-rings {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+        .dict-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(0,212,255,0.4);
+            opacity: 0;
+            inset: 0;
+        }
+        .dictation-play-btn.playing ~ .dictation-play-rings .dict-ring {
+            animation: ring-expand 1.8s ease-out infinite;
+        }
+        .ring2 { animation-delay: 0.6s !important; }
+        .ring3 { animation-delay: 1.2s !important; }
+        @keyframes ring-expand {
+            0% { inset: 10px; opacity: 0.7; }
+            100% { inset: -30px; opacity: 0; }
+        }
+
+        .dictation-played-count {
+            font-size: 14px;
+            color: #888;
+            min-height: 20px;
+        }
+
+        /* 底部按钮 */
+        .dictation-controls {
+            display: flex;
+            gap: 14px;
+            width: 100%;
+            max-width: 360px;
+        }
+        .dict-ctrl-btn {
+            flex: 1;
+            padding: 14px 0;
+            font-size: 15px;
+        }
+
+        /* ===== 错题本样式 ===== */
         .wrongbook-page {
             padding-top: 10px;
         }
@@ -1946,6 +2184,9 @@
                 <button class="btn btn-primary" onclick="startPractice('listen')">
                     🔊 听音写词
                 </button>
+                <button class="btn btn-primary dictation-btn" onclick="showDictationSettings()">
+                    ✍️ 听音默写
+                </button>
                 <button class="btn btn-secondary" onclick="startPractice('translate')">
                     🈶 中译英
                 </button>
@@ -1976,6 +2217,111 @@
             </div>
         </div>
         
+        <!-- ===== 听音默写：设置页 ===== -->
+        <div class="page" id="dictationSettingsPage">
+            <button class="back-btn" onclick="goHome()">←</button>
+            <div class="header">
+                <div class="logo">✍️ 听音默写</div>
+                <div class="subtitle">iPad 朗读，孩子在练习本上写</div>
+            </div>
+            <div class="main-content" style="gap:20px;">
+                <!-- 发音次数 -->
+                <div class="dictation-setting-card">
+                    <div class="dictation-setting-label">每个单词朗读次数</div>
+                    <div class="dictation-repeat-row">
+                        <button class="repeat-adj-btn" onclick="adjustRepeat(-1)">－</button>
+                        <span class="repeat-value" id="repeatValue">2</span>
+                        <button class="repeat-adj-btn" onclick="adjustRepeat(1)">＋</button>
+                    </div>
+                    <div class="dictation-setting-hint">每次点击"播放"时自动连续朗读该次数</div>
+                </div>
+
+                <!-- 朗读间隔 -->
+                <div class="dictation-setting-card">
+                    <div class="dictation-setting-label">两遍之间间隔（秒）</div>
+                    <div class="dictation-repeat-row">
+                        <button class="repeat-adj-btn" onclick="adjustInterval(-1)">－</button>
+                        <span class="repeat-value" id="intervalValue">3</span>
+                        <button class="repeat-adj-btn" onclick="adjustInterval(1)">＋</button>
+                    </div>
+                    <div class="dictation-setting-hint">留给孩子书写的时间</div>
+                </div>
+
+                <!-- 是否显示中文提示 -->
+                <div class="dictation-setting-card">
+                    <div class="dictation-setting-label">显示中文释义</div>
+                    <div class="dictation-toggle-row">
+                        <span id="showMeaningLabel" style="color:#aaa;">关闭</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="showMeaningToggle" onchange="updateMeaningLabel()">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="dictation-setting-hint">开启后每题显示中文，帮助理解</div>
+                </div>
+
+                <button class="btn btn-primary" style="margin-top:10px;font-size:18px;padding:16px 0;" onclick="startDictation()">
+                    开始默写 →
+                </button>
+            </div>
+        </div>
+
+        <!-- ===== 听音默写：默写页 ===== -->
+        <div class="page" id="dictationPage">
+            <button class="back-btn" onclick="goHome()">←</button>
+
+            <!-- 进度条 -->
+            <div class="progress-bar">
+                <div class="progress-fill" id="dictProgressBar" style="width:0%"></div>
+            </div>
+
+            <div class="dictation-main">
+                <!-- 进度文字 -->
+                <div class="dictation-progress-text" id="dictProgressText">1 / 10</div>
+
+                <!-- 中文释义（可选显示） -->
+                <div class="dictation-meaning" id="dictMeaning"></div>
+
+                <!-- 大播放按钮区 -->
+                <div class="dictation-play-area">
+                    <button class="dictation-play-btn" id="dictPlayBtn" onclick="dictPlayWord()">
+                        <span class="dict-play-icon">🔊</span>
+                        <span class="dict-play-label" id="dictPlayLabel">播放</span>
+                    </button>
+                    <!-- 播放进度圆圈 -->
+                    <div class="dictation-play-rings" id="dictPlayRings">
+                        <div class="dict-ring ring1"></div>
+                        <div class="dict-ring ring2"></div>
+                        <div class="dict-ring ring3"></div>
+                    </div>
+                </div>
+
+                <!-- 已播放次数 -->
+                <div class="dictation-played-count" id="dictPlayedCount">点击播放</div>
+
+                <!-- 底部控制 -->
+                <div class="dictation-controls">
+                    <button class="btn btn-secondary dict-ctrl-btn" onclick="dictReplay()">🔄 再听一遍</button>
+                    <button class="btn btn-secondary dict-ctrl-btn" onclick="dictSkip()">⏭ 跳过此词</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 听音默写：完成页 ===== -->
+        <div class="page result-page" id="dictationResultPage">
+            <div class="result-icon" id="dictResultIcon">🎉</div>
+            <div class="result-title" id="dictResultTitle">默写完成！</div>
+            <div class="result-stats">
+                <div class="stat-item">
+                    <span>单词数</span>
+                    <span class="stat-value" id="dictTotalCount">0</span>
+                </div>
+            </div>
+            <div style="color:#aaa;font-size:14px;margin-top:10px;">批改完成后可将错题手动加入错题本</div>
+            <button class="btn btn-primary" onclick="showPage('homePage')">返回主页</button>
+            <button class="btn btn-secondary" onclick="restartDictation()">再来一遍</button>
+        </div>
+
         <!-- 练习页面 -->
         <div class="page practice-page" id="practicePage">
             <button class="back-btn" onclick="goHome()">←</button>
@@ -3186,16 +3532,18 @@
             } else {
                 wrongWords.push(currentWords[currentIndex]);
                 addToWrongBook(currentWords[currentIndex]);
-                showFeedback('✗ 答案是: ' + currentWords[currentIndex].word, false);
+                showFeedback('✗ 拼写错误', false, currentWords[currentIndex].word);
                 highlightLetters(false);
             }
             
             updateAchievements(isCorrect);
             
-            setTimeout(function() {
-                currentIndex++;
-                loadQuestion();
-            }, 1500);
+            if (isCorrect) {
+                setTimeout(function() {
+                    currentIndex++;
+                    loadQuestion();
+                }, 1500);
+            }
         }
         
         function checkChoice(isCorrect, btn) {
@@ -3220,15 +3568,17 @@
                         break;
                     }
                 }
-                showFeedback('✗ 答案是: ' + currentWords[currentIndex].meaning, false);
+                showFeedback('✗ 答案是', false, currentWords[currentIndex].meaning);
             }
             
             updateAchievements(isCorrect);
             
-            setTimeout(function() {
-                currentIndex++;
-                loadQuestion();
-            }, 1500);
+            if (isCorrect) {
+                setTimeout(function() {
+                    currentIndex++;
+                    loadQuestion();
+                }, 1500);
+            }
         }
         
         function highlightLetters(isCorrect) {
@@ -3242,24 +3592,39 @@
         
         function skipWord() {
             wrongWords.push(currentWords[currentIndex]);
-            showFeedback('跳过！答案: ' + currentWords[currentIndex].word, false);
-            setTimeout(function() {
-                currentIndex++;
-                loadQuestion();
-            }, 1500);
+            addToWrongBook(currentWords[currentIndex]);
+            showFeedback('⏭ 跳过', false, currentWords[currentIndex].word);
         }
         
-        function showFeedback(message, isCorrect) {
+        function showFeedback(message, isCorrect, correctWord) {
             // 播放音效
             playFeedbackSound(isCorrect);
             
             var feedback = document.getElementById('feedback');
-            feedback.textContent = message;
-            feedback.className = 'feedback ' + (isCorrect ? 'correct' : 'wrong') + ' show';
-            
-            setTimeout(function() {
-                feedback.classList.remove('show');
-            }, 1200);
+
+            if (isCorrect) {
+                // 正确：纯文字，自动消失
+                feedback.innerHTML = '<span class="feedback-msg">' + message + '</span>';
+                feedback.className = 'feedback correct show';
+                setTimeout(function() {
+                    feedback.classList.remove('show');
+                }, 1200);
+            } else {
+                // 错误：显示正确单词 + 下一个词按钮，手动点击继续
+                var wordDisplay = correctWord ? '<span class="feedback-correct-word">' + correctWord + '</span>' : '';
+                feedback.innerHTML =
+                    '<span class="feedback-msg">' + message + '</span>' +
+                    wordDisplay +
+                    '<button class="feedback-next-btn" onclick="nextWordFromFeedback()">下一个词 →</button>';
+                feedback.className = 'feedback wrong show stay';
+            }
+        }
+
+        function nextWordFromFeedback() {
+            var feedback = document.getElementById('feedback');
+            feedback.classList.remove('show', 'stay');
+            currentIndex++;
+            loadQuestion();
         }
         
         function showResult() {
@@ -3313,6 +3678,192 @@
             loadQuestion();
         }
         
+        // ==================== 听音默写功能 ====================
+
+        var dictWords = [];
+        var dictIndex = 0;
+        var dictRepeatCount = 2;    // 每词朗读次数
+        var dictIntervalSec = 3;    // 两遍间隔秒数
+        var dictShowMeaning = false;
+        var dictPlayedTimes = 0;    // 本词已播次数
+        var dictIsPlaying = false;
+        var dictPlayTimer = null;
+
+        function showDictationSettings() {
+            showPage('dictationSettingsPage');
+        }
+
+        function adjustRepeat(delta) {
+            dictRepeatCount = Math.max(1, Math.min(5, dictRepeatCount + delta));
+            document.getElementById('repeatValue').textContent = dictRepeatCount;
+        }
+
+        function adjustInterval(delta) {
+            dictIntervalSec = Math.max(1, Math.min(10, dictIntervalSec + delta));
+            document.getElementById('intervalValue').textContent = dictIntervalSec;
+        }
+
+        function updateMeaningLabel() {
+            dictShowMeaning = document.getElementById('showMeaningToggle').checked;
+            document.getElementById('showMeaningLabel').textContent = dictShowMeaning ? '开启' : '关闭';
+            document.getElementById('showMeaningLabel').style.color = dictShowMeaning ? '#00d4ff' : '#aaa';
+        }
+
+        function startDictation() {
+            // 准备单词列表（和练习模式一致）
+            if (currentUnit === 'all') {
+                dictWords = [];
+                var unitIndex;
+                for (unitIndex = 1; unitIndex <= 12; unitIndex++) {
+                    if (wordBank[unitIndex]) {
+                        dictWords = dictWords.concat(wordBank[unitIndex]);
+                    }
+                }
+            } else {
+                var selectedUnit = parseInt(currentUnit);
+                dictWords = wordBank[selectedUnit] ? wordBank[selectedUnit].slice() : [];
+            }
+
+            if (dictWords.length === 0) {
+                alert('该单元没有单词，请先添加单词！');
+                return;
+            }
+
+            dictWords = shuffleArray(dictWords);
+            dictIndex = 0;
+            showPage('dictationPage');
+            loadDictWord();
+        }
+
+        function loadDictWord() {
+            if (dictIndex >= dictWords.length) {
+                showDictationResult();
+                return;
+            }
+
+            // 重置播放状态
+            dictPlayedTimes = 0;
+            dictIsPlaying = false;
+            if (dictPlayTimer) { clearTimeout(dictPlayTimer); dictPlayTimer = null; }
+
+            var word = dictWords[dictIndex];
+            var progress = (dictIndex / dictWords.length) * 100;
+            document.getElementById('dictProgressBar').style.width = progress + '%';
+            document.getElementById('dictProgressText').textContent = (dictIndex + 1) + ' / ' + dictWords.length;
+
+            // 中文释义
+            var meaningEl = document.getElementById('dictMeaning');
+            if (dictShowMeaning) {
+                meaningEl.textContent = word.meaning;
+            } else {
+                meaningEl.textContent = '';
+            }
+
+            // 重置按钮
+            var playBtn = document.getElementById('dictPlayBtn');
+            playBtn.classList.remove('playing');
+            document.getElementById('dictPlayLabel').textContent = '播放';
+            document.getElementById('dictPlayedCount').textContent = '点击播放';
+
+            // 自动播放
+            setTimeout(function() { dictPlayWord(); }, 400);
+        }
+
+        function dictPlayWord() {
+            if (dictIsPlaying) return;
+
+            var word = dictWords[dictIndex];
+            dictPlayedTimes = 0;
+            dictIsPlaying = true;
+
+            var playBtn = document.getElementById('dictPlayBtn');
+            playBtn.classList.add('playing');
+            document.getElementById('dictPlayLabel').textContent = '朗读中…';
+
+            dictPlaySequence(word.word, dictRepeatCount);
+        }
+
+        function dictPlaySequence(wordText, remaining) {
+            if (remaining <= 0) {
+                // 全部播完 → 自动跳下一词
+                dictIsPlaying = false;
+                var playBtn = document.getElementById('dictPlayBtn');
+                playBtn.classList.remove('playing');
+                document.getElementById('dictPlayLabel').textContent = '✓';
+                document.getElementById('dictPlayedCount').textContent =
+                    '已朗读 ' + dictRepeatCount + ' 遍，即将下一词…';
+                // 稍作停顿再跳，给孩子反应时间
+                dictPlayTimer = setTimeout(function() {
+                    dictIndex++;
+                    loadDictWord();
+                }, 1200);
+                return;
+            }
+
+            dictPlayedTimes++;
+            document.getElementById('dictPlayedCount').textContent =
+                '第 ' + dictPlayedTimes + ' / ' + dictRepeatCount + ' 遍';
+
+            // 播放音频
+            playDictAudio(wordText, function() {
+                // 播完一遍，等待间隔后继续
+                dictPlayTimer = setTimeout(function() {
+                    dictPlaySequence(wordText, remaining - 1);
+                }, dictIntervalSec * 1000);
+            });
+        }
+
+        function playDictAudio(wordText, onEnd) {
+            try {
+                var audioUrl = 'https://dict.youdao.com/dictvoice?type=2&audio=' + encodeURIComponent(wordText);
+                var audio = new Audio(audioUrl);
+                audio.onended = onEnd;
+                audio.onerror = function() {
+                    // 降级到 TTS
+                    dictTTS(wordText, onEnd);
+                };
+                audio.play().catch(function() { dictTTS(wordText, onEnd); });
+            } catch (e) {
+                dictTTS(wordText, onEnd);
+            }
+        }
+
+        function dictTTS(wordText, onEnd) {
+            if (!('speechSynthesis' in window)) { if (onEnd) onEnd(); return; }
+            var utt = new SpeechSynthesisUtterance(wordText);
+            utt.lang = 'en-US';
+            utt.rate = 0.8;
+            utt.onend = onEnd;
+            speechSynthesis.speak(utt);
+        }
+
+        function dictReplay() {
+            if (dictIsPlaying) return;
+            dictPlayWord();
+        }
+
+        function dictSkip() {
+            // 手动跳过当前词（停止播放，立即进入下一个）
+            dictIsPlaying = false;
+            if (dictPlayTimer) { clearTimeout(dictPlayTimer); dictPlayTimer = null; }
+            speechSynthesis && speechSynthesis.cancel && speechSynthesis.cancel();
+
+            dictIndex++;
+            loadDictWord();
+        }
+
+        function showDictationResult() {
+            document.getElementById('dictTotalCount').textContent = dictWords.length;
+            showPage('dictationResultPage');
+        }
+
+        function restartDictation() {
+            dictWords = shuffleArray(dictWords);
+            dictIndex = 0;
+            showPage('dictationPage');
+            loadDictWord();
+        }
+
         // ==================== P2 阶段功能 ====================
         
         // 学习模式 - 单词卡片
